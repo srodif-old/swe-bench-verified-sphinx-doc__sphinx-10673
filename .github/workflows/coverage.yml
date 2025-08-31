@@ -32,4 +32,4 @@ jobs:
         PYTEST_ADDOPTS: "--cov ./ --cov-append --cov-config setup.cfg"
 
     - name: codecov
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v5
