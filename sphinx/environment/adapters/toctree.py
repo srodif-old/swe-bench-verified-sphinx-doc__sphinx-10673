@@ -139,6 +139,24 @@ class TocTree:
                         item = nodes.list_item('', para)
                         # don't show subitems
                         toc = nodes.bullet_list('', item)
+                    elif ref in {'genindex', 'modindex', 'search'}:
+                        # Handle built-in special pages
+                        if title is None:
+                            # Set default titles for special pages
+                            titles_map = {
+                                'genindex': __('Index'),
+                                'modindex': __('Module Index'), 
+                                'search': __('Search Page')
+                            }
+                            title = titles_map.get(ref, ref)
+                        reference = nodes.reference('', '', internal=True,
+                                                    refuri=ref,
+                                                    anchorname='',
+                                                    *[nodes.Text(title)])
+                        para = addnodes.compact_paragraph('', '', reference)
+                        item = nodes.list_item('', para)
+                        # don't show subitems for special pages
+                        toc = nodes.bullet_list('', item)
                     else:
                         if ref in parents:
                             logger.warning(__('circular toctree references '
